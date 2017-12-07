@@ -43,35 +43,40 @@ namespace Calculator
             table.Controls.Add(mainIO);
             table.SetColumnSpan(mainIO, 4);
 
-            Button ce = new Button
+            table.Controls.Add(ButtonMaker("CE"));
+            table.Controls.Add(ButtonMaker("C"));
+            table.Controls.Add(ButtonMaker("<="));
+            table.Controls.Add(ButtonMaker("/"));
+
+            table.Controls.Add(ButtonMaker("7"));
+            table.Controls.Add(ButtonMaker("8"));
+            table.Controls.Add(ButtonMaker("9"));
+            table.Controls.Add(ButtonMaker("X"));
+
+            table.Controls.Add(ButtonMaker("4"));
+            table.Controls.Add(ButtonMaker("5"));
+            table.Controls.Add(ButtonMaker("6"));
+            table.Controls.Add(ButtonMaker("-"));
+
+            table.Controls.Add(ButtonMaker("1"));
+            table.Controls.Add(ButtonMaker("2"));
+            table.Controls.Add(ButtonMaker("3"));
+            table.Controls.Add(ButtonMaker("+"));
+
+            table.Controls.Add(ButtonMaker("∓"));
+            table.Controls.Add(ButtonMaker("0"));
+            table.Controls.Add(ButtonMaker(","));
+            table.Controls.Add(ButtonMaker("="));
+
+        }
+        public Button ButtonMaker(string text)
+        {
+            Button button = new Button
             {
-                Text = "CE",
+                Text = text,
                 Dock = DockStyle.Fill
             };
-            table.Controls.Add(ce);
-            Button c = new Button
-            {
-                Text = "C",
-                Dock = DockStyle.Fill
-            };
-            table.Controls.Add(c);
-            Button back = new Button
-            {
-                Text = "<=",
-                Dock = DockStyle.Fill
-            };
-            table.Controls.Add(back);
-            Button divide = new Button
-            {
-                Text = "/",
-                Dock = DockStyle.Fill
-            };
-            table.Controls.Add(divide);
-
-
-
-
-
+            return button;
         }
     }
 }
