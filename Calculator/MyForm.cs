@@ -8,10 +8,11 @@ using System.Drawing;
 
 namespace Calculator
 {
+
     class MyForm : Form
     {
-        TextBox mainIO;
-        List<object> NumbersAndOperators = new List<object> { };
+        public static TextBox mainIO;
+
         public MyForm()
         {
             MinimumSize = new Size(330, 360);
@@ -50,7 +51,6 @@ namespace Calculator
             {
                 table.Controls.Add(ButtonMaker(text));
                 table.Controls[table.Controls.Count - 1].Click += ClickedKeyEventHandler;
-                //GetControl(text).Click += ClickedKeyEventHandler;
             }
         }
         public Button ButtonMaker(string text)
@@ -62,23 +62,12 @@ namespace Calculator
             };
             return button;
         }
-        public Control GetControl(string text)
-        {
-            Control returnThis = null;
-            foreach (Control control in Controls)
-            {
-                if (control.Text == text)
-                {
-                    returnThis = control;
-                }
-            }
-            return returnThis;
-        }
+
         public void ClickedKeyEventHandler(object sender, EventArgs e)
         {
             Button recieved = (Button)sender;
             string keyPressed = recieved.Text.ToString();
-            switch(keyPressed)
+            switch (keyPressed)
             {
                 case "1":
                 case "2":
@@ -94,11 +83,20 @@ namespace Calculator
                     break;
                 case "C":
                     mainIO.Clear();
+                    Calculate.NumbersAndOperators.Clear();
                     break;
                 case "+":
                 case "-":
                 case "/":
-                case "X":                    
+                case "X":
+                    Calculate.NumbersAndOperators.Add(mainIO.Text);
+                    Calculate.NumbersAndOperators.Add(keyPressed);
+                    mainIO.Clear();
+                    break;
+                case "=":
+                    Calculate.NumbersAndOperators.Add(mainIO.Text);
+                    mainIO.Clear();
+                    mainIO.Text = Calculate.CalculateResult().ToString();
                     break;
             }
         }
