@@ -11,7 +11,7 @@ namespace Calculator
 
     class MyForm : Form
     {
-        public static NumericUpDown mainIO;
+        public static TextBox mainIO;
 
         public MyForm()
         {
@@ -37,15 +37,12 @@ namespace Calculator
             table.RowStyles.Add(new RowStyle(SizeType.Percent, 20));
             table.RowStyles.Add(new RowStyle(SizeType.Percent, 20));
 
-            mainIO = new NumericUpDown
+            mainIO = new TextBox
             {
                 Dock = DockStyle.Fill,
                 Font = new Font("serif", 24),
-                RightToLeft = RightToLeft.Yes,
-                Maximum = 10000000000,
-                Minimum = -1000
+                TextAlign = HorizontalAlignment.Right
             };
-            mainIO.Controls[0].Visible = false;
             table.Controls.Add(mainIO);
             table.SetColumnSpan(mainIO, 4);
 
@@ -82,6 +79,7 @@ namespace Calculator
                 case "8":
                 case "9":
                 case "0":
+                case ",":
                     mainIO.Text += keyPressed;
                     break;
                 case "C":
