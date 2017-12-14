@@ -11,7 +11,7 @@ namespace Calculator
 
     class MyForm : Form
     {
-        public static TextBox mainIO;
+        public static NumericUpDown mainIO;
 
         public MyForm()
         {
@@ -37,12 +37,15 @@ namespace Calculator
             table.RowStyles.Add(new RowStyle(SizeType.Percent, 20));
             table.RowStyles.Add(new RowStyle(SizeType.Percent, 20));
 
-            mainIO = new TextBox
+            mainIO = new NumericUpDown
             {
                 Dock = DockStyle.Fill,
                 Font = new Font("serif", 24),
-                RightToLeft = RightToLeft.Yes
+                RightToLeft = RightToLeft.Yes,
+                Maximum = 10000000000,
+                Minimum = -1000
             };
+            mainIO.Controls[0].Visible = false;
             table.Controls.Add(mainIO);
             table.SetColumnSpan(mainIO, 4);
 
@@ -82,7 +85,7 @@ namespace Calculator
                     mainIO.Text += keyPressed;
                     break;
                 case "C":
-                    mainIO.Clear();
+                    mainIO.ResetText();
                     Calculate.NumbersAndOperators.Clear();
                     break;
                 case "+":
@@ -91,11 +94,11 @@ namespace Calculator
                 case "X":
                     Calculate.NumbersAndOperators.Add(mainIO.Text);
                     Calculate.NumbersAndOperators.Add(keyPressed);
-                    mainIO.Clear();
+                    mainIO.ResetText();
                     break;
                 case "=":
                     Calculate.NumbersAndOperators.Add(mainIO.Text);
-                    mainIO.Clear();
+                    mainIO.ResetText();
                     mainIO.Text = Calculate.CalculateResult().ToString();
                     break;
             }
