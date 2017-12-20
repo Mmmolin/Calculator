@@ -53,7 +53,7 @@ namespace Calculator
                 table.Controls[table.Controls.Count - 1].Click += ClickedKeyEventHandler;
             }
         }
-        public Button ButtonMaker(string text)
+        private Button ButtonMaker(string text)
         {
             Button button = new Button
             {
@@ -62,6 +62,18 @@ namespace Calculator
             };
             return button;
         }
+
+        private static bool CheckInput(string input)
+        {
+            decimal num = 0;
+            bool isNumeric = false;
+            if (decimal.TryParse(input, out num))
+            {
+                isNumeric = true;
+            }
+            return isNumeric;           
+        }
+
 
         public void ClickedKeyEventHandler(object sender, EventArgs e)
         {
@@ -83,22 +95,53 @@ namespace Calculator
                     mainIO.Text += keyPressed;
                     break;
                 case "C":
-                    mainIO.ResetText();
+                    mainIO.Clear();
                     Calculate.NumbersAndOperators.Clear();
+                    break;
+                case "CE":
+                    mainIO.Clear();
+                    break;
+                case "<=":
+                    try
+                    {
+                        mainIO.Text = mainIO.Text.Remove(mainIO.Text.Length - 1);
+                    }
+                    catch { }
                     break;
                 case "+":
                 case "-":
                 case "/":
                 case "X":
+                    if (CheckInput(mainIO.Text))
+                    {
                     Calculate.NumbersAndOperators.Add(mainIO.Text);
                     Calculate.NumbersAndOperators.Add(keyPressed);
                     mainIO.ResetText();
                     break;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Only numeric values are allowed");
+                        mainIO.ResetText();
+                        break;
+                    }
+                case "∓":
+                    mainIO.Text = "-" + mainIO.Text;
+                    break;
                 case "=":
+                    if (CheckInput(mainIO.Text))
+                    {
                     Calculate.NumbersAndOperators.Add(mainIO.Text);
                     mainIO.ResetText();
-                    mainIO.Text = Calculate.CalculateResult().ToString();
+                    mainIO.Text = Calculate.Sum().ToString();
                     break;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Only numeric values are allowed");
+                        mainIO.ResetText();
+                        break;
+                    }
             }
         }
     }

@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Calculator
 {
     class Calculate
     {
         public static List<string> NumbersAndOperators = new List<string>();
-        
-        private static decimal Result(string op, decimal num1, decimal num2)
+
+        private static decimal Calculation(string op, decimal num1, decimal num2)
         {
             switch (op)
             {
@@ -21,7 +22,7 @@ namespace Calculator
                 default: return -1;
             }
         }
-        public static decimal CalculateResult()
+        public static decimal Sum()
         {
             decimal result = decimal.Parse(NumbersAndOperators[0]);
             string[] operators = { "+", "-", "/", "X" };
@@ -29,8 +30,8 @@ namespace Calculator
             {
                 if (operators.Contains<string>(NumbersAndOperators[i]))
                 {
-                    result = Result(NumbersAndOperators[i], result, decimal.Parse(NumbersAndOperators[i + 1]));
-                }                
+                    result = Calculation(NumbersAndOperators[i], result, decimal.Parse(NumbersAndOperators[i + 1]));
+                }
             }
             return Math.Round(result, 2);
         }
